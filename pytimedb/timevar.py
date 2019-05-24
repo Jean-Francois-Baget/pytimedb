@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""pytimedb.timevar
 
+(C) Jean-François Baget 2019 
+"""
 class TimeVar():
     
-    def __init__(self, id, min = float('-inf'), max = float('inf'), low = set([]), upp = set([])):
+    def __init__(self, id, min = float('-inf'), max = float('inf'), low = [], upp = []):
         self.id = id
         self.min = min
         self.max = max
-        self.low = low
-        self.upp = upp
+        self.low = set(low)
+        self.upp = set(upp)
 
 
     @classmethod
@@ -14,8 +19,8 @@ class TimeVar():
         return cls(json_timevar['_id'], 
                    min = cls.__json_to_number(json_timevar['min']),
                    max = cls.__json_to_number(json_timevar['max']),
-                   low = set(json_timevar['low']),
-                   upp = set(json_timevar['upp']))
+                   low = json_timevar['low'],
+                   upp = json_timevar['upp'])
 
     def to_json(self):
         return {

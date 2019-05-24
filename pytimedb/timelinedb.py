@@ -1,4 +1,10 @@
-from pytime.timevar import TimeVar
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""pytimedb.timelinedb
+
+(C) Jean-François Baget 2019 
+"""
+from pytimedb.timevar import TimeVar
 
 class TimeLineDB():
     

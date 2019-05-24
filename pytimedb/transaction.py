@@ -1,5 +1,11 @@
-from pytime.timelinedb import TimeLineDB, TimeLineDBError
-from pytime.timevar import TimeVar
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""pytimedb.transaction
+
+(C) Jean-François Baget 2019 
+"""
+from pytimedb.timelinedb import TimeLineDB, TimeLineDBError
+from pytimedb.timevar import TimeVar
  
 class Transaction():
     
