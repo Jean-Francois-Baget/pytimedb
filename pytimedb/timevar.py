@@ -13,14 +13,19 @@ class TimeVar():
         self.low = set(low)
         self.upp = set(upp)
 
+    def __repr__(self):
+        return str(self.to_json())
 
     @classmethod
     def from_json(cls, json_timevar : dict):
-        return cls(json_timevar['_id'], 
-                   min = cls.__json_to_number(json_timevar['min']),
-                   max = cls.__json_to_number(json_timevar['max']),
-                   low = json_timevar['low'],
-                   upp = json_timevar['upp'])
+        try:
+            return cls(json_timevar['_id'], 
+                       min = cls.__json_to_number(json_timevar['min']),
+                       max = cls.__json_to_number(json_timevar['max']),
+                       low = json_timevar['low'],
+                       upp = json_timevar['upp'])
+        except KeyError:
+            return None
 
     def to_json(self):
         return {
@@ -52,10 +57,12 @@ class TimeVar():
                 raise UnsatisfiabilityError(msg.format(self.id, self.min, self.max))
             self.max = max
             self.modified = True
+            newupp = set([])
             for uppname in self.upp:
                 uppvar = transaction.get(uppname)
-                if uppvar.min > self.max:
-                    self.upp.discard(uppname)
+                if uppvar.min < self.max:
+                    newupp.add(uppname)
+            self.upp = newupp
             for lowname in self.low:
                 lowvar = transaction.get(lowname)
                 lowvar.set_max(max, transaction)
@@ -67,10 +74,12 @@ class TimeVar():
                 raise UnsatisfiabilityError(msg.format(self.id, self.min, self.max))
             self.min = min
             self.modified = True
+            newlow = set([])
             for lowname in self.low:
                 lowvar = transaction.get(lowname)
-                if lowvar.max < self.min:
-                    self.low.discard(lowname)
+                if lowvar.max > self.min:
+                    newlow.add(lowname)
+            self.low = newlow
             for uppname in self.upp:
                 uppvar = transaction.get(uppname)
                 uppvar.set_min(min, transaction)
