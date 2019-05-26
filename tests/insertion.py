@@ -38,9 +38,18 @@ def test(number, max_size, proba_both):
 # plt.show()
 
 ## TEST 2
-results = []
+''' results = []
 for i in range(100):
     results.append(test(500 * i, 1000, 0.8))
+
+plt.plot(list(range(100)), results, 'ro')
+plt.axis([0, 100, 0, 5])
+plt.show()
+ '''
+## TEST 3
+results = []
+for i in range(100):
+    results.append(test(1000 * i, 500, 0.8))
 
 plt.plot(list(range(100)), results, 'ro')
 plt.axis([0, 100, 0, 5])
