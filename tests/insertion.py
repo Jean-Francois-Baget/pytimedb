@@ -28,9 +28,19 @@ def test(number, max_size, proba_both):
     t2 = time.time()
     return (t2 - t1)
 
+## TEST 1
+# results = []
+# for i in range(100):
+#     results.append(test(10000, 1000, i/100))
+
+# plt.plot(list(range(100)), results, 'ro')
+# plt.axis([0, 100, 0, 5])
+# plt.show()
+
+## TEST 2
 results = []
 for i in range(100):
-    results.append(test(10000, 1000, i/100))
+    results.append(test(500 * i, 1000, 0.8))
 
 plt.plot(list(range(100)), results, 'ro')
 plt.axis([0, 100, 0, 5])
