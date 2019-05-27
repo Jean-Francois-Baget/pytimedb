@@ -74,14 +74,15 @@ if __name__ == '__main__':
     import time
     from pytimedb.memorydb import MemoryDB
 
-    size_universe = 10000
-    size_inserts = 100000
-    delta = 3000
+    size_universe = 100
+    size_inserts = 1000
+    delta = 1000
+    proba = 0.9
 
     universe = ["x_" + str(i) for i in range(size_universe)]
     inserts = []
     while len(inserts) < size_inserts:
-        if random.random() < 0.80:
+        if random.random() < proba:
             p1 = random.randint(0, size_universe - 1)
             p2 = random.randint(0, size_universe - 1)
             if p1 < p2:
@@ -104,6 +105,8 @@ if __name__ == '__main__':
     result = transaction.can_insert(inserts)
     t2 = time.time()
     print(t2 - t1)
+    for key, value in transaction.buffer.items():
+        print(value)
 
     
         
